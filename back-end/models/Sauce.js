@@ -15,4 +15,4 @@ userLiked: { type: Array },
 usersDisliked: { type: Array },
 });
 
-module.exports = mongoose.model('Thing', thingSchema);
+module.exports = mongoose.model('Sauce', sauceSchema);
