@@ -2,18 +2,31 @@
 const jwt = require ('jsonwebtoken');
 const bcrypt = require ('bcrypt');
 
+// Importation models de la base de données "User.js".
+const User = require ("../models/User");
+
 exports.signup = (req, res, next) => {
-  bcrypt.hash(req.body.password, 10)
+
+  console.log("CONTENU : req.body.email - controllers/user");
+  console.log(req.body.email)
+  console.log("CONTENU : req.body.password - controllers/user");
+  console.log(req.body.password)
+
+  bcrypt.hash(req.body.password, 10)// salage 10 fois du mot de passe.
   .then(hash => {
     const user = new User({
       email: req.body.email,
       password: hash
     });
+
+    console.log("------->CONTENU : user - controllers/user.js");
+    console.log(user);
+
     user.save()
     .then(() => res.status(201).json ({ message: 'Utilisateur créé !' }))
     .catch(error => res.status(400).json ({ error }));
   })
-  .catch(error => res.status(500).json ({ error }));
+  .catch(error => res.status(500).json ({ error }).send(console.log(error)));
 };
 
 exports.login = (req, res, next) => {
