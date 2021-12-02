@@ -1,9 +1,12 @@
 // Déclaration des modules d'authentification sécurisés (token et hash).
 const jwt = require ('jsonwebtoken');
 const bcrypt = require ('bcrypt');
+const cryptojs = require('crypto-js');
+console.log(cryptojs)
 
 // Importation models de la base de données "User.js".
 const User = require ("../models/User");
+
 
 exports.signup = (req, res, next) => {
 
@@ -12,10 +15,13 @@ exports.signup = (req, res, next) => {
   console.log("CONTENU : req.body.password - controllers/user");
   console.log(req.body.password)
 
+  const emailCryptoJs = cryptojs.HmacSHA256(req.body.email, "CLE_SECRETE").toString();
+  console.log("CONTENU : emailCryptoJs - controllers/user")
+
   bcrypt.hash(req.body.password, 10)// salage 10 fois du mot de passe.
   .then(hash => {
     const user = new User({
-      email: req.body.email,
+      email: emailCryptoJs,
       password: hash
     });
 
