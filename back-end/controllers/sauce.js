@@ -1,109 +1,47 @@
+console.log(` ----> test`);
+
+
 const Sauce = require('../models/Sauce');
 
 // Création de la sauce
 exports.createSauce = (req, res, next) => {
-  const Sauce = new Sauce({
-    title: req.body.title,
-    description: req.body.description,
-    imageUrl: req.body.imageUrl,
-    price: req.body.price,
-    userId: req.body.userId
-  });
-  thing.save().then(
-    () => {
-      res.status(201).json({
-        message: 'Post saved successfully!'
-      });
-    }
-  ).catch(
-    (error) => {
-      res.status(400).json({
-        error: error
-      });
-    }
-  );
-};
 
-exports.getOneSauce = (req, res, next) => {
-  Thing.findOne({
-    _id: req.params.id
-  }).then(
-    (thing) => {
-      res.status(200).json(thing);
-    }
-  ).catch(
-    (error) => {
-      res.status(404).json({
-        error: error
-      });
-    }
-  );
-};
+  console.log(`----->CONTENU : req.body.email - controllers/sauce`);
+  console.log(req.body)
 
-exports.modifySauce = (req, res, next) => {
+
+ const bodySauce = JSON.parse(req.body.Sauce);
+  console.log(`CONTENU : req.body.password - controllers/sauce`);
+  console.log(bodySauce)
   const sauce = new Sauce({
-    _id: req.params.id,
-    title: req.body.title,
-    description: req.body.description,
-    imageUrl: req.body.imageUrl,
-    price: req.body.price,
-    userId: req.body.userId
-  });
-  Thing.updateOne({_id: req.params.id}, sauce).then(
-    () => {
-      res.status(201).json({
-        message: 'Thing updated successfully!'
-      });
-    }
-  ).catch(
-    (error) => {
-      res.status(400).json({
-        error: error
-      });
-    }
-  );
+    // Spread des infos schema.
+    ...bodySauce,
+
+    //userId: bodySauce.userId,
+    //name: bodySauce.name,
+    //manufacturer: bodySauce.manufacturer,
+    //description: bodySauce.description,
+    //mainPepper: bodySauce.mainPepper,
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${ req.file.filename }`,
+    //heat: bodySauce.heat,
+    //likes: 0,
+    //dislikes: 0,
+    //usersLiked: [' '],
+   // usersDisliked: [' '],
+  })
+  console.log(`CONTENU : sauce - controllers/sauce`);
+console.log(sauce)
+  if (sauce.userId === req.token.userId) {
+    sauce.save().then(() => {
+      res.status(201).json({ message: 'Post saved successfully!', contenu: req.body });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error });
+    }  
+  )}
+
+  else {
+        res.status(403).json({ error: "403 a decrire" });
+  }
 };
 
-exports.deleteSauce = (req, res, next) => {
-  Thing.findOne({ _id: req.params.id }).then(
-    (sauce) => {
-      if (!thing) {
-        res.status(404).json({
-          error: new Error('No such Thing!')
-        });
-      }
-      if (thing.userId !== req.auth.userId) {
-        res.status(403).json({
-          error: new Error('Unauthorized request!')
-        });
-      }
-      Thing.deleteOne({ _id: req.params.id }).then(
-        () => {
-          res.status(200).json({
-            message: 'Deleted!'
-          });
-        }
-      ).catch(
-        (error) => {
-          res.status(400).json({
-            error: error
-          });
-        }
-      );
-    }
-  )
-};
-
-exports.getAllSauce = (req, res, next) => {
-  Thing.find().then(
-    (things) => {
-      res.status(200).json(things);
-    }
-  ).catch(
-    (error) => {
-      res.status(400).json({
-        error: error
-      });
-    }
-  );
-};

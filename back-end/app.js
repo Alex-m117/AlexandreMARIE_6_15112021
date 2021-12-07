@@ -1,5 +1,6 @@
 // Déclarations des constantes des dépendencies d'app.js.
 const express = require('express');
+
 const morgan = require('morgan');
 const path = require('path');
 
@@ -18,6 +19,9 @@ const bodyParser = require ('body-parser');
 
 // Permet de log les requêtes et les réponses.
 app.use(morgan("dev"));
+
+// Debug Mongoose.
+//mongoose.set('debug', true);
 
 // Intégration de la méthode CORS.
 app.use((req, res, next) => {

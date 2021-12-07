@@ -9,3 +9,5 @@ const userSchema = mongoose.Schema({
 userSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('User', userSchema);
+// message d'erreur personnalisé de mongoose 
+// middleware controle de email et mot de passe rejex pour route userr
