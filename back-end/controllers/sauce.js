@@ -1,47 +1,65 @@
 console.log(` ----> test`);
 
-
 const Sauce = require('../models/Sauce');
+const fs = require('fs');
 
 // Création de la sauce
 exports.createSauce = (req, res, next) => {
+  //delete sauceObject._id;
+  console.log(`----->CONTENU : req.body - controllers/sauce`);
+  const obj = JSON.parse(JSON.stringify(req.body));
 
-  console.log(`----->CONTENU : req.body.email - controllers/sauce`);
-  console.log(req.body)
+  console.log(obj); 
 
-
- const bodySauce = JSON.parse(req.body.Sauce);
-  console.log(`CONTENU : req.body.password - controllers/sauce`);
-  console.log(bodySauce)
+  const sauceObject = JSON.parse(req.body.sauce);
+  console.log(`CONTENU : req.body.sauce - controllers/sauce`);
+  console.log(sauceObject)
   const sauce = new Sauce({
     // Spread des infos schema.
-    ...bodySauce,
+    ...sauceObject,
 
-    //userId: bodySauce.userId,
-    //name: bodySauce.name,
-    //manufacturer: bodySauce.manufacturer,
-    //description: bodySauce.description,
-    //mainPepper: bodySauce.mainPepper,
+    // Récupération de l'image.
     imageUrl: `${req.protocol}://${req.get('host')}/images/${ req.file.filename }`,
-    //heat: bodySauce.heat,
-    //likes: 0,
-    //dislikes: 0,
-    //usersLiked: [' '],
-   // usersDisliked: [' '],
+
+    // Initialisation des valeurs de like/dislike.
+    likes: 0,
+    dislikes: 0,
+    usersLiked: [' '],
+    usersDisliked: [' '],
   })
   console.log(`CONTENU : sauce - controllers/sauce`);
-console.log(sauce)
-  if (sauce.userId === req.token.userId) {
-    sauce.save().then(() => {
-      res.status(201).json({ message: 'Post saved successfully!', contenu: req.body });
-    })
-    .catch((error) => {
-      res.status(400).json({ error: error });
-    }  
-  )}
-
-  else {
-        res.status(403).json({ error: "403 a decrire" });
-  }
+  console.log(sauce)
+  
+  sauce.save()
+  .then(() => { res.status(201).json({ message: 'Sauce crée et enregistrée !', contenu: req.body });
+})
+  .catch((error) => { res.status(400).json({ error: error });
+})  
 };
+
+exports.getOneSauce = (req, res, next) => {
+  Sauce
+  .findOne({ _id: req.params.id })
+  .then((thing) => { res.status(200).json(thing);
+  })
+  .catch((error) => { res.status(404).json({ error: error });
+}
+);
+};
+
+exports.getAllSauce = (req, res, next) => {
+  Sauce
+  .find().then((things) => { res.status(200).json(things);
+  })
+  .catch((error) => { res.status(400).json({ error: error });
+}
+);
+};
+
+
+
+
+
+
+
 

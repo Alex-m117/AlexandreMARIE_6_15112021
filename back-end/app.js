@@ -1,6 +1,6 @@
 // Déclarations des constantes des dépendencies d'app.js.
 const express = require('express');
-
+const helmet = require("helmet");
 const morgan = require('morgan');
 const path = require('path');
 
@@ -30,6 +30,8 @@ app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
 	next();
 });
+
+app.use(helmet());
 
 app.use(bodyParser.json());
 

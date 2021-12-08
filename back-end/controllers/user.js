@@ -3,7 +3,6 @@ const jwt = require ('jsonwebtoken');
 const bcrypt = require ('bcrypt');
 const cryptojs = require('crypto-js');
 
-
 // Importation models de la base de données "User.js".
 const User = require ("../models/User");
 
