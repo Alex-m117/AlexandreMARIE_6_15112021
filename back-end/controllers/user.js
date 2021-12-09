@@ -34,13 +34,14 @@ exports.login = (req, res, next) => {
   .HmacSHA256(req.body.email, `${process.env.CRYPTOJS_EMAIL}`)
   .toString();
 
-  // Cherche dans la base de donnée Mondo DB si l'utilisateur est bien présent.
+  // Cherche dans la base de données Mondo DB si l'utilisateur est bien présent.
   User.findOne ({ email: emailCryptoJs })
   // Si l'email de l'user n'est pas présent, l'avertir qu'il n'est pas trouvé.
   .then(user => {
     if (!user) {
       return res.status(401).json ({ error: 'Utilisateur non trouvé !' });
     }
+    // Compare le mot de passe avec la base de données, si le mdp est incorrect,
     bcrypt.compare(req.body.password, user.password)
     .then(valid => {
       if (!valid) {
