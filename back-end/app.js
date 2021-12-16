@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 // Traitement des requêtes pour les images via path.
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use('/api/sauce', sauceRoutes);
+app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 
 module.exports = app;
