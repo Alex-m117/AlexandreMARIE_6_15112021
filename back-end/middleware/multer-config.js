@@ -19,10 +19,8 @@ const storage = multer.diskStorage({
     // Suppression des espaces dans le nom du fichier.
     const name = file.originalname.split(' ').join('_');
     const extension = MIME_TYPES[file.mimetype];
-    
     callback(null, name + Date.now() + '.' + extension);
   }
 });
-console.log("------>contenu: STORAGE")
-console.log(storage)
+
 module.exports = multer({ storage }).single('image');

@@ -5,7 +5,6 @@ const email = require ('../middleware/email');
 // Avant usercontrol signup, password validator sur mdp en clair.
 const password = require ('../middleware/password');
 const userControl = require ('../controllers/user');
-
 // Déclaration des routes signup et login.
 router.post ('/signup', email, password, userControl.signup);
 router.post ('/login', userControl.login);

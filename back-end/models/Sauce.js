@@ -1,3 +1,4 @@
+// Création du modèle de la sauce qui sera à compléter par le front pour l'intégration des données et modifications de ses informations par le CRUD.
 const mongoose = require('mongoose');
 
 const sauceSchema = mongoose.Schema({

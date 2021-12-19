@@ -29,17 +29,15 @@ Utilisez `Ctrl+C` dans le terminal pour arrêter le serveur local.
 Vous aurez besoin d'avoir Node et `npm` installés localement sur votre machine.
 A la racine du dossier back-end via le terminal saisissez `run npm install` si windows ou `sudo npm install` pour macOs (sudo: mot de passe necessaire) 
 
-- Créer un dossier "images" (ou seront stockés les images des sauces)
-
 - Renommer le fichier env.exemple fourni dans le dossier back-end en ".env" pour intégrer le pattern si dessous et y mettre vos informations personnelles (base de données, clé secrète ect...).
 
-PORT = 3000
-DB_USERNAME = "Username de la base de donnée MONGO_DB"
-DB_PASSWORD = "Password de la base de donnée MONGO_DB"
-DB_CLUSTER = "Cluster de votre base de donnée au format "(Clusterx.xxxx)"
-DB_NAME = "Mon de votre base de donnée MONGO_DB"
-CRYPTOJS_EMAIL = "Votre clé crypto secrète (Chaine de caractère à insérer via générateur de mot de passe recommandé)"
-JWT_KEY_TOKEN = "Votre token secret (Chaine de caractère à insérer via générateur de mot de passe recommandé)"
+- PORT = 3000
+- DB_USERNAME = "Username de la base de donnée MONGO_DB"
+- DB_PASSWORD = "Password de la base de donnée MONGO_DB"
+- DB_CLUSTER = "Cluster de votre base de donnée au format "(Clusterx.xxxx)"
+- DB_NAME = "Mon de votre base de donnée MONGO_DB"
+- CRYPTOJS_EMAIL = "Votre clé crypto secrète (Chaine de caractère à insérer via générateur de mot de passe recommandé)"
+- JWT_KEY_TOKEN = "Votre token secret (Chaine de caractère à insérer via générateur de mot de passe recommandé)"
 ## Initialisation back-end ##
 
 Il suffit ensuite d'utiliser le terminal via la commande `cd` ce rendre à la racine du dossier `back-end`. Une fois positionné sur le dossier `back-end` saisissez sur le terminal `node server.js`, il devrait alors y avoir un message de confirmation "Listening on port 3000". 
