@@ -1,3 +1,4 @@
+// Import de mongoose unique validator pour s'assurer que un seul et même utilisateur ne puisse pas créer 2 comptes par erreur.
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const { Schema } = mongoose;

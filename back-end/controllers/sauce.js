@@ -65,11 +65,11 @@ exports.modifySauce = (req, res, next) => {
       .updateOne({_id : req.params.id}, {...sauceObject, _id : req.params.id})
       .then(() => { res.status(201).json({ message: 'Modification(s) de la sauce enregistrée !' });
       })
-      .catch((error) => { res.status(400).json({ error: error });
+      .catch((error) => { res.status(404).json({ error: error });
       })
     }
     else {
-      res.status(401).json({ message: 'Erreur : seul le créateur de la sauce peut la modifiée !' });
+      res.status(403).json({ message: 'Erreur : seul le créateur de la sauce peut la modifiée !' });
     }
   })
 };
@@ -91,10 +91,10 @@ exports.deleteSauce = (req, res, next) => {
     })
     }
     else {
-      res.status(401).json({ error: 'Erreur : seul le créateur de la sauce peut la supprimée !' });
+      res.status(403).json({ error: 'Erreur : seul le créateur de la sauce peut la supprimée !' });
     }     
   })
-  .catch((error) => { res.status(505).json({ error });
+  .catch((error) => { res.status(500).json({ error });
   })
 };
 // Via la méthode POST donne la possibilité aux utilisateurs d'aimer ou de ne pas aimer une sauce crée (gestion du vote en temps réel).

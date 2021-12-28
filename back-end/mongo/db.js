@@ -1,4 +1,4 @@
-// Importation des variables d'environnement via le package "dotenv"
+// Importation des variables d'environnement via le package "dotenv" pour sécurisée les données de la bases de données.
 const dotenv = require('dotenv');
 const result = dotenv.config();
 
